@@ -1,5 +1,7 @@
 import HeroImg from "@/assets/images/hero.png";
-import OlovaLogo from "@/assets/images/olova.png";
+{
+  /* import OlovaLogo from "@/assets/images/olova.png"; */
+}
 
 export default function About() {
   return (
@@ -24,11 +26,11 @@ export default function About() {
 
             <div className="relative space-y-4">
               <p className="text-white">
-                Hello! I'm Nazmul Hossain, a passionate JavaScript developer
-                specializing in creating innovative web solutions and
+                Hello! I'm Kokou Jean Apôtre KPETSI, a passionate JavaScript
+                developer specializing in creating innovative web solutions and
                 user-friendly interfaces.{" "}
                 <span className="font-bold text-white">
-                  As the creator of the OlovaJS UI Framework
+                  As the creator of the ... UI Framework
                 </span>
                 , I'm dedicated to simplifying development workflows.
               </p>
@@ -49,7 +51,7 @@ export default function About() {
                     empower developers worldwide.
                   </p>
 
-                  <div className="mt-6 space-y-3">
+                  {/*<div className="mt-6 space-y-3">
                     <cite className="block font-medium text-white">
                       Nazmul Hossain, Creator of
                     </cite>
@@ -63,7 +65,7 @@ export default function About() {
                       />
                       <span className="text-white">OlovaJS</span>
                     </div>
-                  </div>
+                  </div> */}
                 </blockquote>
               </div>
             </div>

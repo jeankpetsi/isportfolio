@@ -50,7 +50,7 @@ export default function Hero() {
 
   const [code] = useState(`
 const profile = {
-    name: 'Nazmul Hossain',
+    name: 'Jean KPETSI',
     title: 'Full-Stack Developer | Cloud Enthusiast | Problem Solver',
     skills: [
         'React', 'NextJS', 'Redux', 'Express',
@@ -117,7 +117,7 @@ const profile = {
       if (isTargetResolution) {
         document.documentElement.style.setProperty(
           "--hero-padding-top",
-          "12rem"
+          "12rem",
         );
       } else {
         document.documentElement.style.setProperty("--hero-padding-top", "0");
