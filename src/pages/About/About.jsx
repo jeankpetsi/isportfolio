@@ -10,6 +10,7 @@ import {
   Download,
   ArrowDown,
 } from "lucide-react";
+import Meteors from "@/components/ui/meteors";
 
 const About = () => {
   const [displayedCode, setDisplayedCode] = useState("");
@@ -257,6 +258,11 @@ const About = () => {
       {/* Purple glow */}
       <div className="absolute bottom-0 left-1/3 w-[450px] h-[450px] rounded-full bg-purple-600/10 blur-[120px]" />
 
+      {/* Étoiles filantes */}
+      <div className="absolute inset-0 overflow-hidden">
+        <Meteors number={20} />
+      </div>
+
       {/* ========================================================
           CONTENT
       ======================================================== */}
@@ -313,7 +319,7 @@ const About = () => {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute -top-8 left-24 hidden lg:block"
+              className="absolute -top-8 left-1/2 -translate-x-1/2 hidden lg:block"
             >
               <div className="relative px-5 py-2.5 rounded-lg bg-purple-500/10 border border-purple-500/30 backdrop-blur-md shadow-[0_0_25px_rgba(168,85,247,0.15)]">
                 <div className="absolute -inset-1 rounded-lg bg-purple-500/10 blur-lg -z-10" />
@@ -367,14 +373,32 @@ const About = () => {
 
             <div className="relative">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-black leading-[0.95] tracking-tight">
-                <span className="block text-white">Hello</span>
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="block text-white"
+                >
+                  Hello, I'm
+                </motion.span>
 
-                <span className="block mt-3">
-                  I'm{" "}
-                  <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-emerald-400 bg-clip-text text-transparent">
-                    Jean KPETSI
-                  </span>
-                </span>
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.15 }}
+                  className="relative inline-block mt-3"
+                >
+                  <span className="gradient-text">Jean KPETSI</span>
+
+                  {/* Trait animé sous le nom */}
+                  <motion.span
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                    style={{ transformOrigin: "left" }}
+                    className="absolute -bottom-2 left-0 h-[3px] w-full bg-gradient-to-r from-cyan-400 via-blue-400 to-emerald-400 rounded-full"
+                  />
+                </motion.span>
               </h1>
 
               <div className="absolute -z-10 left-20 bottom-0 w-72 h-32 bg-cyan-500/10 blur-3xl rounded-full" />
