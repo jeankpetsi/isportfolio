@@ -11,6 +11,7 @@ import {
   ArrowDown,
 } from "lucide-react";
 import Meteors from "@/components/ui/meteors";
+import resumePdf from "@/resume/resume.pdf";
 
 const About = () => {
   const [displayedCode, setDisplayedCode] = useState("");
@@ -453,7 +454,7 @@ const About = () => {
 
             <div className="flex flex-wrap gap-4 mt-8">
               <motion.a
-                href="#skills"
+                href="/skills"
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium shadow-[0_0_25px_rgba(6,182,212,0.2)] hover:shadow-[0_0_35px_rgba(6,182,212,0.35)] transition-shadow duration-300"
@@ -463,9 +464,8 @@ const About = () => {
               </motion.a>
 
               <motion.a
-                href="/assets/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={resumePdf}
+                download
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white/[0.03] border border-gray-700 text-gray-300 font-medium hover:border-cyan-500/50 hover:text-cyan-300 transition-all duration-300"
