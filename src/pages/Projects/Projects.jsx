@@ -1,101 +1,53 @@
 import { ReactLenis } from "lenis/react";
 import { useTransform, motion, useScroll } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import PropTypes from "prop-types";
+
+// Project images
+import auramarketImage from "../../assets/images/auramarket.png";
+import synapselinkImage from "../../assets/images/synapselink.png";
+import typingracerImage from "../../assets/images/typingracer.png";
 
 const projects = [
   {
-    title: "Olova! A Lightweight JavaScript Library",
+    title: "AuraMarket",
     description:
-      "A lightweight JavaScript library for creating beautiful, responsive UI components.",
-    src: "rock.jpg",
-    link: "https://i.postimg.cc/DwgWTfP0/Annotation-2025-03-19-113338.png",
-    color: "#5196fd",
-    githubLink: "https://github.com/olovajs/olova",
-    liveLink: "https://olova.js.org/",
+      "A multi-vendor marketplace designed to connect sellers and customers. Sellers can showcase their products while customers can discover, view and order products through a modern digital platform.",
+    src: auramarketImage,
+    color: "#8B5CF6",
+    githubLink: "https://github.com/JeanJAKK/AuraMarket",
+    liveLink: null,
+    technologies: ["Odoo", "Python", "PostgreSQL", "JavaScript", "HTML", "CSS"],
   },
   {
-    title: "A sleek portfolio built with React and Tailwind CSS ",
+    title: "SynapseLink",
     description:
-      "A sleek portfolio built with React and Tailwind CSS to showcase your skills, projects, and experience in a modern design.",
-    src: "tree.jpg",
-    link: "https://i.postimg.cc/J75CKyrs/Annotation-2025-04-01-203959.png",
-    color: "#8f89ff",
-    githubLink: "https://github.com/seraprogrammer/portfolio",
-    liveLink: "https://codervai.vercel.app",
+      "A modern social network application where users can create accounts, publish text and image content, interact with posts and enjoy a responsive interface with light and dark themes.",
+    src: synapselinkImage,
+    color: "#06B6D4",
+    githubLink: "https://github.com/JeanJAKK/Dev-lab-Mini-r-seau-social-",
+    liveLink: "https://dev-lab-mini-r-seau-social-seven.vercel.app/",
+    technologies: ["React", "Vite", "JavaScript", "Tailwind CSS", "daisyUI"],
   },
   {
-    title: "🚀 CodeWhisperer",
+    title: "TYPINGRACER",
     description:
-      "🚀 CodeWhisperer A powerful online code editor built with React and Tailwind CSS. Featuring real-time code execution, syntax highlighting, multi-language support, and a sleek UI. Start coding instantly! 💻✨",
-    src: "water.jpg",
-    link: "https://i.postimg.cc/J4jPVFY0/Annotation-2025-04-01-204723.png",
-    color: "#fff",
-    githubLink: "https://github.com/seraprogrammer/codewhisperer",
-    liveLink: "https://codewhisperer.vercel.app/",
-  },
-  {
-    title: "CodeKori 🔥",
-    description:
-      "CodeKori is a powerful online code editor built with React and Tailwind CSS. Featuring real-time code execution, syntax highlighting, multi-language support, and a sleek UI. Start coding instantly! 💻✨",
-    src: "house.jpg",
-    link: "https://i.postimg.cc/cHQr4fpR/Annotation-2025-04-01-205350.png",
-    color: "#ed649e",
-    githubLink: "https://github.com/seraprogrammer/CodeKori",
-    liveLink: "https://codekori.js.org",
+      "An interactive typing race application designed to help users test and improve their typing speed and accuracy through word and phrase modes, scoring and an engaging cyberpunk-inspired interface.",
+    src: typingracerImage,
+    color: "#EC4899",
+    githubLink: "https://github.com/JeanJAKK/TYPINGRACER",
+    liveLink: "https://typingracer-nu.vercel.app/",
+    technologies: ["React", "Vite", "JavaScript", "Tailwind CSS"],
   },
 ];
 
 export default function Projects() {
   const container = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end end"],
   });
-
-  useEffect(() => {
-    // Add specific styles for 1366x768 resolution
-    const style = document.createElement("style");
-    style.textContent = `
-      @media screen and (width: 1366px) and (height: 768px),
-             screen and (width: 1367px) and (height: 768px),
-             screen and (width: 1368px) and (height: 769px) {
-        .project-card {
-          scale: 0.85;
-          margin-top: -5vh;
-        }
-        .project-container {
-          height: 90vh;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Resolution check function
-    const checkResolution = () => {
-      const isTargetResolution =
-        window.innerWidth >= 1360 &&
-        window.innerWidth <= 1370 &&
-        window.innerHeight >= 760 &&
-        window.innerHeight <= 775;
-
-      if (isTargetResolution) {
-        document.documentElement.style.setProperty("--project-scale", "0.85");
-        document.documentElement.style.setProperty("--project-margin", "-5vh");
-      } else {
-        document.documentElement.style.setProperty("--project-scale", "1");
-        document.documentElement.style.setProperty("--project-margin", "0");
-      }
-    };
-
-    checkResolution();
-    window.addEventListener("resize", checkResolution);
-
-    return () => {
-      document.head.removeChild(style);
-      window.removeEventListener("resize", checkResolution);
-    };
-  }, []);
 
   return (
     <ReactLenis root>
@@ -103,14 +55,16 @@ export default function Projects() {
         <section className="text-white w-full bg-slate-950">
           {projects.map((project, i) => {
             const targetScale = 1 - (projects.length - i) * 0.05;
+
             return (
               <Card
-                key={`p_${i}`}
+                key={`project_${i}`}
                 i={i}
-                url={project.link}
+                url={project.src}
                 title={project.title}
                 color={project.color}
                 description={project.description}
+                technologies={project.technologies}
                 progress={scrollYProgress}
                 range={[i * 0.25, 1]}
                 targetScale={targetScale}
@@ -136,87 +90,114 @@ function Card({
   targetScale,
   githubLink,
   liveLink,
+  technologies,
 }) {
   const container = useRef(null);
+
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
     <div
       ref={container}
-      className="h-screen flex items-center justify-center sticky top-0 project-container"
+      className="h-screen flex items-center justify-center sticky top-0"
     >
       <motion.div
         style={{
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
-          transform: `scale(var(--project-scale, 1))`,
-          marginTop: "var(--project-margin, 0)",
         }}
-        className="relative -top-[25%] h-auto w-[90%] md:w-[85%] lg:w-[75%] xl:w-[65%] origin-top project-card"
+        className="relative -top-[25%] h-auto w-[90%] md:w-[85%] lg:w-[75%] xl:w-[65%] origin-top"
         whileHover={{
           y: -8,
           transition: { duration: 0.3 },
         }}
       >
-        {/* Modern split card design */}
-        <div className="w-full flex flex-col md:flex-row bg-zinc-900 rounded-2xl overflow-hidden shadow-xl">
-          {/* Image section - full width on mobile, 55% on desktop */}
+        <div className="w-full flex flex-col md:flex-row bg-zinc-900 rounded-2xl overflow-hidden shadow-xl border border-white/5">
+          {/* Image */}
           <div className="w-full md:w-[55%] h-[250px] md:h-[400px] lg:h-[450px] relative overflow-hidden">
             <motion.img
               src={url}
-              alt={title}
+              alt={`${title} project preview`}
               className="w-full h-full object-cover"
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.4 }}
             />
 
-            {/* Colored overlay on hover */}
+            {/* Hover overlay */}
             <motion.div
               className="absolute inset-0"
-              style={{ backgroundColor: color, mixBlendMode: "overlay" }}
+              style={{
+                backgroundColor: color,
+                mixBlendMode: "overlay",
+              }}
               initial={{ opacity: 0 }}
               whileHover={{ opacity: 0.3 }}
               transition={{ duration: 0.3 }}
             />
 
             {/* Project number */}
-            <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-black/50 backdrop-blur-md text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium">
-              Project {i + 1}
+            <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-black/60 backdrop-blur-md text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium">
+              Project {String(i + 1).padStart(2, "0")}
             </div>
           </div>
 
-          {/* Content section - full width on mobile, 45% on desktop */}
+          {/* Content */}
           <div className="w-full md:w-[45%] p-6 md:p-8 lg:p-10 flex flex-col justify-between">
             <div>
+              {/* Project indicator */}
               <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div
                   className="w-2 h-2 md:w-3 md:h-3 rounded-full"
                   style={{ backgroundColor: color }}
                 />
+
                 <div className="h-[1px] w-12 md:w-20 bg-gray-600" />
+
+                <span className="text-xs text-gray-500 uppercase tracking-widest">
+                  Featured Project
+                </span>
               </div>
 
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-4">
+              {/* Title */}
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 md:mb-4">
                 {title}
               </h2>
-              <p className="text-sm md:text-base text-gray-400 leading-relaxed line-clamp-3 md:line-clamp-none max-w-md">
+
+              {/* Description */}
+              <p className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md">
                 {description}
               </p>
+
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2 mt-5">
+                {technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div className="mt-4 md:mt-auto pt-4">
-              <div className="w-full h-[1px] bg-gray-800 mb-4 md:mb-6" />
+            {/* Bottom links */}
+            <div className="mt-6 md:mt-auto pt-6">
+              <div className="w-full h-[1px] bg-gray-800 mb-5 md:mb-6" />
 
-              <div className="flex items-center gap-4">
-                {/* GitHub Link */}
+              <div className="flex items-center gap-5">
+                {/* GitHub */}
                 <motion.a
                   href={githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2"
                   whileHover={{ y: -3 }}
-                  transition={{ type: "spring", stiffness: 400 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -229,8 +210,9 @@ function Card({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                   </svg>
+
                   <span
                     className="text-xs md:text-sm font-medium"
                     style={{ color }}
@@ -239,37 +221,50 @@ function Card({
                   </span>
                 </motion.a>
 
-                {/* Live Link */}
-                <motion.a
-                  href={liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-2"
-                  whileHover={{ y: -3 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke={color}
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {/* Live Demo */}
+                {liveLink && (
+                  <motion.a
+                    href={liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2"
+                    whileHover={{ y: -3 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                    }}
                   >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                  </svg>
-                  <span
-                    className="text-xs md:text-sm font-medium"
-                    style={{ color }}
-                  >
-                    Live
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke={color}
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="2" y1="12" x2="22" y2="12" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+
+                    <span
+                      className="text-xs md:text-sm font-medium"
+                      style={{ color }}
+                    >
+                      Live
+                    </span>
+                  </motion.a>
+                )}
+
+                {/* No live demo */}
+                {!liveLink && (
+                  <span className="text-xs md:text-sm text-gray-600">
+                    Live demo coming soon
                   </span>
-                </motion.a>
+                )}
               </div>
             </div>
           </div>
@@ -279,7 +274,6 @@ function Card({
   );
 }
 
-// Add PropTypes validation
 Card.propTypes = {
   i: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
@@ -290,5 +284,6 @@ Card.propTypes = {
   range: PropTypes.array.isRequired,
   targetScale: PropTypes.number.isRequired,
   githubLink: PropTypes.string.isRequired,
-  liveLink: PropTypes.string.isRequired,
+  liveLink: PropTypes.string,
+  technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
