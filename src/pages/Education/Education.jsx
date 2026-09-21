@@ -1,4 +1,3 @@
-```tsx
 import React, { useState } from "react";
 import {
   Calendar,
@@ -11,14 +10,14 @@ import {
 import { motion } from "framer-motion";
 
 const EducationSection = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const educationData = [
     {
       degree: "Licence en Informatique — Génie Logiciel",
       school: "École Polytechnique de Lomé (EPL)",
       mascot: "🎓",
-      year: "2025 — 2026",
+      year: "2025 — present",
       achievements: [
         "Génie Logiciel",
         "Sciences et Technologies",
@@ -60,7 +59,6 @@ const EducationSection = () => {
 
   return (
     <section className="min-h-screen relative overflow-hidden py-40 bg-[#04081A]">
-
       {/* Grid Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:50px_50px]" />
@@ -71,7 +69,6 @@ const EducationSection = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -113,14 +110,10 @@ const EducationSection = () => {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <div className="space-y-6">
-
                 {/* Degree */}
                 <div className="space-y-3">
-
                   <div className="flex items-start gap-3">
-                    <span className="text-3xl">
-                      {edu.mascot}
-                    </span>
+                    <span className="text-3xl">{edu.mascot}</span>
 
                     <h3 className="text-2xl font-bold text-white">
                       {edu.degree}
@@ -138,7 +131,6 @@ const EducationSection = () => {
                     <Calendar className="w-4 h-4" />
                     {edu.year}
                   </p>
-
                 </div>
 
                 {/* Description */}
@@ -148,7 +140,6 @@ const EducationSection = () => {
 
                 {/* Academic Focus */}
                 <div className="space-y-3">
-
                   <h4 className="text-sm font-semibold text-white flex items-center gap-2">
                     <Code2 className="w-4 h-4 text-teal-400" />
                     Academic Focus
@@ -165,12 +156,10 @@ const EducationSection = () => {
                       </div>
                     ))}
                   </div>
-
                 </div>
 
                 {/* Skills */}
                 <div className="space-y-3">
-
                   <h4 className="text-sm font-semibold text-white flex items-center gap-2">
                     <Database className="w-4 h-4 text-blue-400" />
                     Skills Developed
@@ -186,9 +175,7 @@ const EducationSection = () => {
                       </span>
                     ))}
                   </div>
-
                 </div>
-
               </div>
             </motion.div>
           ))}
@@ -205,17 +192,15 @@ const EducationSection = () => {
           <Brain className="w-8 h-8 text-purple-400 mx-auto mb-4" />
 
           <p className="text-gray-300 leading-relaxed">
-            Beyond my academic studies, I continuously develop my skills
-            through personal projects and hands-on experimentation with
-            modern technologies, software architecture, web development,
-            mobile development and intelligent systems.
+            Beyond my academic studies, I continuously develop my skills through
+            personal projects and hands-on experimentation with modern
+            technologies, software architecture, web development, mobile
+            development and intelligent systems.
           </p>
         </motion.div>
-
       </div>
     </section>
   );
 };
 
 export default EducationSection;
-```

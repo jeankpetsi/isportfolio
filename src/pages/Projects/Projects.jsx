@@ -1,12 +1,11 @@
+import React, { useEffect, useRef } from "react";
 import { ReactLenis } from "lenis/react";
 import { useTransform, motion, useScroll } from "framer-motion";
-import { useRef } from "react";
 import PropTypes from "prop-types";
 
-// Project images
 import auramarketImage from "../../assets/images/auramarket.png";
 import synapselinkImage from "../../assets/images/synapselink.png";
-import typingracerImage from "../../assets/images/typingracer.png";
+import typingracerImage from "../../assets/images/tapingracer.png";
 
 const projects = [
   {
@@ -14,30 +13,27 @@ const projects = [
     description:
       "A multi-vendor marketplace designed to connect sellers and customers. Sellers can showcase their products while customers can discover, view and order products through a modern digital platform.",
     src: auramarketImage,
-    color: "#8B5CF6",
+    color: "#8f89ff",
     githubLink: "https://github.com/JeanJAKK/AuraMarket",
     liveLink: null,
-    technologies: ["Odoo", "Python", "PostgreSQL", "JavaScript", "HTML", "CSS"],
   },
   {
     title: "SynapseLink",
     description:
-      "A modern social network application where users can create accounts, publish text and image content, interact with posts and enjoy a responsive interface with light and dark themes.",
+      "A modern social network application focused on knowledge sharing and interaction. Users can create accounts, publish text and image posts, interact with content and switch between light and dark themes.",
     src: synapselinkImage,
-    color: "#06B6D4",
+    color: "#06b6d4",
     githubLink: "https://github.com/JeanJAKK/Dev-lab-Mini-r-seau-social-",
     liveLink: "https://dev-lab-mini-r-seau-social-seven.vercel.app/",
-    technologies: ["React", "Vite", "JavaScript", "Tailwind CSS", "daisyUI"],
   },
   {
     title: "TYPINGRACER",
     description:
-      "An interactive typing race application designed to help users test and improve their typing speed and accuracy through word and phrase modes, scoring and an engaging cyberpunk-inspired interface.",
+      "An interactive typing race application designed to help users improve their typing speed and accuracy through word and phrase challenges, scoring and an immersive cyberpunk-inspired interface.",
     src: typingracerImage,
-    color: "#EC4899",
+    color: "#06b6d4",
     githubLink: "https://github.com/JeanJAKK/TYPINGRACER",
     liveLink: "https://typingracer-nu.vercel.app/",
-    technologies: ["React", "Vite", "JavaScript", "Tailwind CSS"],
   },
 ];
 
@@ -49,6 +45,56 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
 
+  useEffect(() => {
+    // Styles spécifiques pour les écrans 1366x768
+    const style = document.createElement("style");
+
+    style.textContent = `
+      @media screen and (width: 1366px) and (height: 768px),
+             screen and (width: 1367px) and (height: 768px),
+             screen and (width: 1368px) and (height: 769px) {
+
+        .project-card {
+          scale: 0.85;
+          margin-top: -5vh;
+        }
+
+        .project-container {
+          height: 90vh;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+
+    const checkResolution = () => {
+      const isTargetResolution =
+        window.innerWidth >= 1360 &&
+        window.innerWidth <= 1370 &&
+        window.innerHeight >= 760 &&
+        window.innerHeight <= 775;
+
+      if (isTargetResolution) {
+        document.documentElement.style.setProperty("--project-scale", "0.85");
+
+        document.documentElement.style.setProperty("--project-margin", "-5vh");
+      } else {
+        document.documentElement.style.setProperty("--project-scale", "1");
+
+        document.documentElement.style.setProperty("--project-margin", "0");
+      }
+    };
+
+    checkResolution();
+
+    window.addEventListener("resize", checkResolution);
+
+    return () => {
+      document.head.removeChild(style);
+      window.removeEventListener("resize", checkResolution);
+    };
+  }, []);
+
   return (
     <ReactLenis root>
       <main className="bg-black" ref={container}>
@@ -58,13 +104,12 @@ export default function Projects() {
 
             return (
               <Card
-                key={`project_${i}`}
+                key={`p_${i}`}
                 i={i}
                 url={project.src}
                 title={project.title}
                 color={project.color}
                 description={project.description}
-                technologies={project.technologies}
                 progress={scrollYProgress}
                 range={[i * 0.25, 1]}
                 targetScale={targetScale}
@@ -90,7 +135,6 @@ function Card({
   targetScale,
   githubLink,
   liveLink,
-  technologies,
 }) {
   const container = useRef(null);
 
@@ -99,101 +143,134 @@ function Card({
   return (
     <div
       ref={container}
-      className="h-screen flex items-center justify-center sticky top-0"
+      className="h-screen flex items-center justify-center sticky top-0 project-container"
     >
       <motion.div
         style={{
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
+          transform: `scale(var(--project-scale, 1))`,
+
+          /*
+           * SEULE MODIFICATION :
+           * espace supplémentaire uniquement
+           * pour la première card.
+           */
+          marginTop: i === 0 ? "120px" : "var(--project-margin, 0)",
         }}
-        className="relative -top-[25%] h-auto w-[90%] md:w-[85%] lg:w-[75%] xl:w-[65%] origin-top"
+        className="relative -top-[25%] h-auto w-[90%] md:w-[85%] lg:w-[75%] xl:w-[65%] origin-top project-card"
         whileHover={{
           y: -8,
-          transition: { duration: 0.3 },
+          transition: {
+            duration: 0.3,
+          },
         }}
       >
-        <div className="w-full flex flex-col md:flex-row bg-zinc-900 rounded-2xl overflow-hidden shadow-xl border border-white/5">
-          {/* Image */}
+        {/* =====================================================
+            CARD
+        ===================================================== */}
+
+        <div className="w-full flex flex-col md:flex-row bg-zinc-900 rounded-2xl overflow-hidden shadow-xl">
+          {/* ===================================================
+              IMAGE
+          =================================================== */}
+
           <div className="w-full md:w-[55%] h-[250px] md:h-[400px] lg:h-[450px] relative overflow-hidden">
             <motion.img
               src={url}
-              alt={`${title} project preview`}
+              alt={title}
               className="w-full h-full object-cover"
-              initial={{ scale: 1 }}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.4 }}
+              initial={{
+                scale: 1,
+              }}
+              whileHover={{
+                scale: 1.05,
+              }}
+              transition={{
+                duration: 0.4,
+              }}
             />
 
-            {/* Hover overlay */}
+            {/* Overlay coloré */}
+
             <motion.div
               className="absolute inset-0"
               style={{
                 backgroundColor: color,
                 mixBlendMode: "overlay",
               }}
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 0.3 }}
-              transition={{ duration: 0.3 }}
+              initial={{
+                opacity: 0,
+              }}
+              whileHover={{
+                opacity: 0.3,
+              }}
+              transition={{
+                duration: 0.3,
+              }}
             />
 
-            {/* Project number */}
-            <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-black/60 backdrop-blur-md text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium">
+            {/* Numéro du projet */}
+
+            <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-black/50 backdrop-blur-md text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium">
               Project {String(i + 1).padStart(2, "0")}
             </div>
           </div>
 
-          {/* Content */}
+          {/* ===================================================
+              CONTENT
+          =================================================== */}
+
           <div className="w-full md:w-[45%] p-6 md:p-8 lg:p-10 flex flex-col justify-between">
             <div>
-              {/* Project indicator */}
+              {/* Header */}
+
               <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div
                   className="w-2 h-2 md:w-3 md:h-3 rounded-full"
-                  style={{ backgroundColor: color }}
+                  style={{
+                    backgroundColor: color,
+                  }}
                 />
 
                 <div className="h-[1px] w-12 md:w-20 bg-gray-600" />
 
-                <span className="text-xs text-gray-500 uppercase tracking-widest">
+                <span className="text-xs md:text-sm text-gray-500 uppercase tracking-wider">
                   Featured Project
                 </span>
               </div>
 
               {/* Title */}
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 md:mb-4">
+
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-4">
                 {title}
               </h2>
 
               {/* Description */}
-              <p className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md">
+
+              <p className="text-sm md:text-base text-gray-400 leading-relaxed line-clamp-3 md:line-clamp-none max-w-md">
                 {description}
               </p>
-
-              {/* Technologies */}
-              <div className="flex flex-wrap gap-2 mt-5">
-                {technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
             </div>
 
-            {/* Bottom links */}
-            <div className="mt-6 md:mt-auto pt-6">
-              <div className="w-full h-[1px] bg-gray-800 mb-5 md:mb-6" />
+            {/* =================================================
+                LINKS
+            ================================================= */}
 
-              <div className="flex items-center gap-5">
+            <div className="mt-4 md:mt-auto pt-4">
+              <div className="w-full h-[1px] bg-gray-800 mb-4 md:mb-6" />
+
+              <div className="flex items-center gap-4">
                 {/* GitHub */}
+
                 <motion.a
                   href={githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2"
-                  whileHover={{ y: -3 }}
+                  whileHover={{
+                    y: -3,
+                  }}
                   transition={{
                     type: "spring",
                     stiffness: 400,
@@ -215,20 +292,25 @@ function Card({
 
                   <span
                     className="text-xs md:text-sm font-medium"
-                    style={{ color }}
+                    style={{
+                      color,
+                    }}
                   >
                     Code
                   </span>
                 </motion.a>
 
-                {/* Live Demo */}
-                {liveLink && (
+                {/* Live */}
+
+                {liveLink ? (
                   <motion.a
                     href={liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2"
-                    whileHover={{ y: -3 }}
+                    whileHover={{
+                      y: -3,
+                    }}
                     transition={{
                       type: "spring",
                       stiffness: 400,
@@ -246,21 +328,22 @@ function Card({
                       strokeLinejoin="round"
                     >
                       <circle cx="12" cy="12" r="10" />
+
                       <line x1="2" y1="12" x2="22" y2="12" />
+
                       <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                     </svg>
 
                     <span
                       className="text-xs md:text-sm font-medium"
-                      style={{ color }}
+                      style={{
+                        color,
+                      }}
                     >
                       Live
                     </span>
                   </motion.a>
-                )}
-
-                {/* No live demo */}
-                {!liveLink && (
+                ) : (
                   <span className="text-xs md:text-sm text-gray-600">
                     Live demo coming soon
                   </span>
@@ -274,6 +357,10 @@ function Card({
   );
 }
 
+/* =========================================================
+   PROP TYPES
+========================================================= */
+
 Card.propTypes = {
   i: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
@@ -285,5 +372,4 @@ Card.propTypes = {
   targetScale: PropTypes.number.isRequired,
   githubLink: PropTypes.string.isRequired,
   liveLink: PropTypes.string,
-  technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
