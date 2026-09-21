@@ -179,6 +179,10 @@ function Card({
             <motion.img
               src={url}
               alt={title}
+              loading="lazy"
+              onError={(event) => {
+                event.currentTarget.src = `https://placehold.co/1200x900/0f172a/f8fafc?text=${encodeURIComponent(title)}`;
+              }}
               className="w-full h-full object-cover"
               initial={{
                 scale: 1,
