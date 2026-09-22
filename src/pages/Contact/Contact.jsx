@@ -52,15 +52,22 @@ export default function Contact() {
 
     const form = new FormData();
 
-    // Replace this with your NEW Web3Forms access key
+    // Web3Forms Access Key
     form.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+
     form.append("name", formData.name);
     form.append("email", formData.email);
+
+    // Sujet explicite pour identifier facilement les messages
     form.append(
       "subject",
-      formData.subject || "New message from Jean KPETSI's portfolio",
+      `Nouveau message depuis le portfolio de Jean KPETSI - ${formData.subject}`,
     );
+
     form.append("message", formData.message);
+
+    // Protection anti-spam Web3Forms
+    form.append("botcheck", "");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -180,6 +187,15 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="backdrop-blur-lg bg-white/5 border border-white/10 p-8 rounded-2xl shadow-xl">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot anti-spam Web3Forms */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  tabIndex="-1"
+                  autoComplete="off"
+                />
+
                 {/* Name */}
                 <div>
                   <input
