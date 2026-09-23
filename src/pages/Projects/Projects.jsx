@@ -33,7 +33,7 @@ const projects = [
     src: typingracerImage,
     color: "#06b6d4",
     githubLink: "https://github.com/JeanJAKK/TYPINGRACER",
-    liveLink: "https://typingracer-nu.vercel.app/",
+    liveLink: "https://typingracer-one.vercel.app/",
   },
 ];
 
