@@ -14,24 +14,24 @@ const EducationSection = () => {
 
   const educationData = [
     {
-      degree: "Licence en Informatique — Génie Logiciel",
+      degree: "Bachelor's Degree in Computer Science — Software Engineering",
       school: "École Polytechnique de Lomé (EPL)",
       mascot: "🎓",
       year: "2025 — present",
       achievements: [
-        "Génie Logiciel",
-        "Sciences et Technologies",
-        "Projet tutoré",
+        "Software Engineering",
+        "Science and Technology",
+        "Supervised Project",
       ],
       skills: [
-        "Programmation",
-        "Génie logiciel",
-        "Bases de données",
-        "Développement web",
-        "Algorithmique",
+        "Programming",
+        "Software Engineering",
+        "Databases",
+        "Web Development",
+        "Algorithms",
       ],
       description:
-        "Formation orientée vers la conception, le développement et la maintenance de solutions logicielles, avec un intérêt particulier pour le développement web, les bases de données et les architectures logicielles.",
+        "A program focused on the design, development, and maintenance of software solutions, with a particular interest in web development, databases, and software architecture.",
     },
   ];
 

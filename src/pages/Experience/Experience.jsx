@@ -71,47 +71,47 @@ const ExperienceSection = () => {
       company: "École Polytechnique de Lomé (EPL)",
       period: "2025 — Present",
       description:
-        "Formation en Informatique, spécialité Génie Logiciel, avec un intérêt particulier pour la conception logicielle, le développement d'applications, les bases de données et les architectures modernes.",
+        "Studies in Computer Science, specializing in Software Engineering, with a particular interest in software design, application development, databases, and modern architectures.",
     },
     {
       icon: Code2,
       title: "Full-Stack Developer",
-      company: "Projets personnels",
+      company: "Personal Projects",
       period: "2025 — Present",
       description:
-        "Conception et développement d'applications web modernes avec React, TypeScript, JavaScript, Node.js, Java, Spring Boot, Python et Django, de l'interface utilisateur jusqu'à la logique métier.",
+        "Design and development of modern web applications with React, TypeScript, JavaScript, Node.js, Java, Spring Boot, Python and Django, from the user interface down to the business logic.",
     },
     {
       icon: Network,
       title: "AuraMarket",
-      company: "Projet Marketplace Multi-Vendeur",
-      period: "Projet en développement",
+      company: "Multi-Vendor Marketplace Project",
+      period: "Project in development",
       description:
-        "Développement d'une marketplace permettant aux vendeurs de proposer leurs produits et aux clients de rechercher, consulter et commander des produits. Le projet s'appuie notamment sur Odoo, Python, PostgreSQL, JavaScript et des technologies web modernes.",
+        "Development of a marketplace allowing vendors to list their products and customers to search, browse, and order products. The project relies notably on Odoo, Python, PostgreSQL, JavaScript, and modern web technologies.",
     },
     {
       icon: Smartphone,
       title: "SynapseLink",
-      company: "Projet Web — Réseau Social",
-      period: "Projet réalisé",
+      company: "Web Project — Social Network",
+      period: "Completed project",
       description:
-        "Création d'une application web sociale permettant aux utilisateurs de s'inscrire, publier du contenu avec des images, interagir avec les publications et personnaliser l'apparence de l'application avec les thèmes clair et sombre.",
+        "Creation of a social web application allowing users to sign up, post content with images, interact with posts, and customize the app's appearance with light and dark themes.",
     },
     {
       icon: Cpu,
       title: "TYPINGRACER",
-      company: "Projet Web — React",
-      period: "Projet réalisé",
+      company: "Web Project — React",
+      period: "Completed project",
       description:
-        "Développement d'une application interactive permettant d'améliorer et de tester sa vitesse de frappe avec des modes mots et phrases, un système de score et une interface inspirée de l'univers cyberpunk.",
+        "Development of an interactive application to improve and test typing speed, with word and sentence modes, a scoring system, and a cyberpunk-inspired interface.",
     },
     {
       icon: Database,
-      title: "Exploration des systèmes intelligents",
-      company: "Apprentissage & Projets",
-      period: "En cours",
+      title: "Exploring Intelligent Systems",
+      company: "Learning & Projects",
+      period: "Ongoing",
       description:
-        "Approfondissement progressif des concepts liés à l'intelligence artificielle, aux systèmes intelligents, aux bases de données et à la conception de solutions logicielles modernes.",
+        "Progressive deepening of concepts related to artificial intelligence, intelligent systems, databases, and the design of modern software solutions.",
     },
   ];
 

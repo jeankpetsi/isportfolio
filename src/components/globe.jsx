@@ -11,6 +11,7 @@ const slugs = [
 
   // Backend
   "java",
+  "openjdk",
   "spring",
   "springboot",
   "python",
@@ -41,6 +42,8 @@ const slugs = [
   // Modeling
   "drawio",
   "looping",
+  "merise",
+  "uml",
 ];
 
 function IconCloudDemo() {
